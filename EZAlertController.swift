@@ -71,7 +71,7 @@ public class EZAlertController {
         return alert
     }
     
-    public class func actionSheet(title: String, message: String, sourceView: UIView, actions: [UIAlertAction]) -> UIAlertController {
+    public class func actionSheet(title: String?, message: String, sourceView: UIView, actions: [UIAlertAction]) -> UIAlertController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.ActionSheet)
         for action in actions {
             alert.addAction(action)
@@ -82,7 +82,7 @@ public class EZAlertController {
         return alert
     }
     
-    public class func actionSheet(title: String, message: String, sourceView: UIView, buttons:[String], cancel: String? = nil , tapBlock:((UIAlertAction,Int) -> Void)?) -> UIAlertController{
+    public class func actionSheet(title: String?, message: String, sender: AnyObject, buttons:[String], cancel: String? = nil, tapBlock:((UIAlertAction,Int) -> Void)?) -> UIAlertController{
         let alert = UIAlertController(title: title, message: message, preferredStyle: .ActionSheet, buttons: buttons, tapBlock: tapBlock)
         if cancel != nil {
             let cancelActionButton: UIAlertAction = UIAlertAction(title: cancel, style: .Cancel) { action -> Void in
@@ -93,9 +93,14 @@ public class EZAlertController {
             }
             alert.addAction(cancelActionButton)
         }
-        alert.popoverPresentationController?.sourceView = sourceView
-        alert.popoverPresentationController?.sourceRect = sourceView.bounds
+        if sender.isKindOfClass(UIView.self) {
+            alert.popoverPresentationController?.sourceView = sender as! UIView
+            alert.popoverPresentationController?.sourceRect = sender.bounds
+        } else if sender.isKindOfClass(UIBarButtonItem.self) {
+            alert.popoverPresentationController?.barButtonItem = sender as! UIBarButtonItem
+        }
         instance.topMostController()?.presentViewController(alert, animated: true, completion: nil)
+        alert.view.layoutIfNeeded()
         return alert
     }
     
