@@ -82,8 +82,17 @@ public class EZAlertController {
         return alert
     }
     
-    public class func actionSheet(title: String, message: String, sourceView: UIView, buttons:[String], tapBlock:((UIAlertAction,Int) -> Void)?) -> UIAlertController{
+    public class func actionSheet(title: String, message: String, sourceView: UIView, buttons:[String], cancel: String? = nil , tapBlock:((UIAlertAction,Int) -> Void)?) -> UIAlertController{
         let alert = UIAlertController(title: title, message: message, preferredStyle: .ActionSheet, buttons: buttons, tapBlock: tapBlock)
+        if cancel != nil {
+            let cancelActionButton: UIAlertAction = UIAlertAction(title: cancel, style: .Cancel) { action -> Void in
+                
+                if let block = tapBlock {
+                    block(action,-1)
+                }
+            }
+            alert.addAction(cancelActionButton)
+        }
         alert.popoverPresentationController?.sourceView = sourceView
         alert.popoverPresentationController?.sourceRect = sourceView.bounds
         instance.topMostController()?.presentViewController(alert, animated: true, completion: nil)
