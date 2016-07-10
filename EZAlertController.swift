@@ -66,7 +66,7 @@ public class EZAlertController {
     }
     
     public class func alert(title: String, message: String, buttons:[String], tapBlock:((UIAlertAction,Int) -> Void)?) -> UIAlertController{
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert, buttons: buttons, tapBlock: tapBlock)
+        let alert = UIAlertController.alert(title: title, message: message, preferredStyle: .Alert, buttons: buttons, tapBlock: tapBlock)
         instance.topMostController()?.presentViewController(alert, animated: true, completion: nil)
         return alert
     }
@@ -83,7 +83,7 @@ public class EZAlertController {
     }
     
     public class func actionSheet(title: String?, message: String, sender: AnyObject, buttons:[String], cancel: String? = nil, tapBlock:((UIAlertAction,Int) -> Void)?) -> UIAlertController{
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .ActionSheet, buttons: buttons, tapBlock: tapBlock)
+        let alert = UIAlertController.alert(title: title, message: message, preferredStyle: .ActionSheet, buttons: buttons, tapBlock: tapBlock)
         if cancel != nil {
             let cancelActionButton: UIAlertAction = UIAlertAction(title: cancel, style: .Cancel) { action -> Void in
                 
@@ -108,14 +108,15 @@ public class EZAlertController {
 
 
 private extension UIAlertController {
-    convenience init(title: String?, message: String?, preferredStyle: UIAlertControllerStyle, buttons:[String], tapBlock:((UIAlertAction,Int) -> Void)?) {
-        self.init(title: title, message: message, preferredStyle:preferredStyle)
+    class func alert(title title: String?, message: String?, preferredStyle: UIAlertControllerStyle, buttons:[String], tapBlock:((UIAlertAction,Int) -> Void)?) -> UIAlertController {
+        let alert = UIAlertController(title: title, message: message, preferredStyle:preferredStyle)
         var buttonIndex = 0
         for buttonTitle in buttons {
             let action = UIAlertAction(title: buttonTitle, preferredStyle: .Default, buttonIndex: buttonIndex, tapBlock: tapBlock)
             buttonIndex += 1
-            self.addAction(action)
+            alert.addAction(action)
         }
+        return alert
     }
 }
 
