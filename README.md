@@ -1,6 +1,6 @@
 EZAlertController
 ==============
-[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/EZAlertController.svg)](https://img.shields.io/cocoapods/v/EZAlertController.svg) [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/thellimist/ezalertcontroller/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/EZAlertController.svg)](https://img.shields.io/cocoapods/v/EZAlertController.svg)
 
 Easy Swift UIAlertController
 
@@ -8,6 +8,8 @@ Easy Swift UIAlertController
 - Button action with closures instead of selectors
 - Easily customizable
 - Easy action sheets
+
+*Swift 2.0 is maintained in [this](https://github.com/thellimist/EZAlertController/tree/2.x) branch*
 
 ## Usage
 
@@ -64,15 +66,25 @@ EZAlertController.actionSheet("Title", message: "Message", buttons: ["First", "S
 
 ```swift
 let alertController = EZAlertController.alert("Title") // Returns UIAlertController
-alertController.setValue(attributedTitle, forKey: "attributedTitle") 
+alertController.setValue(attributedTitle, forKey: "attributedTitle")
 alertController.setValue(attributedMessage, forKey: "attributedMessage")
 alertController.view.tintColor =  self.view.tintColor
 ...
 ```
 
-###Requirements
+### Objective-C support
 
-- Swift version 2.0
+```objective-c
+#import "ProjectName-Swift.h"
+
+...
+
+[EZAlertController alert:@"Title" message:@"Message"];
+```
+
+### Requirements
+
+- Swift version 3.0
 
 ## Installation
 
@@ -83,22 +95,18 @@ You can use [CocoaPods](http://cocoapods.org/) to install `EZAlertController` by
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'EZAlertController', '0.3'
+pod 'EZAlertController', '3.2'
 ```
 
 ### Install Manually
 
 - Download and drop 'EZAlertController.swift' in your project.
 
-##Improvement
+## Improvement
 - Feel free sending pull requests.
 
-##License
+## License
 - EZAlertController is available under the MIT license. See the [LICENSE file](https://github.com/thellimist/EZAlertController/blob/master/LICENSE).
 
-##Keywords
+## Keywords
 swift, alert, AlertView, AlertViewController, UIAlertView, UIAlertViewController
-
-
-
-
